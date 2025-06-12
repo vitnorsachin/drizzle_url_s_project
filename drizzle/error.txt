@@ -1,0 +1,5 @@
+Q 1. when error got which is table already exist then 
+Ans: delete "meta" folder only
+
+Q 2. when need to add column, filed then user this
+Ans: cmd : npx drizzle-kit push

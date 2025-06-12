@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Url Shortener</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <%- include('partials/header') %> 
+
+    <% if(user){ %>
+      <h3 style="text-align: center; color: #c004ff; padding-block: 10px;">Hi, <%= user.name.charAt(0).toUpperCase()+user.name.slice(1) %> <br> <span style="text-align: center; color: #00b621; padding-block: 10px;">You are logged In ✅<br> With</span> <span style="color: blue;"><%= user.email %></span></h3>
+    <% } else { %>
+      <h2 style="text-align: center; color: red; padding-block: 30px;">Your are not logged In ❌</h2>
+    <% } %>
+    
+    <div class="container-body">
+      <div class="url_shortener_container">
+        <h1>URL Shortener</h1>
+        <form method="POST" action="/">
+          <div>
+            <label for="url">Enter URL: </label>
+            <input type="url" name="url" id="url" required />
+          </div>
+          <div>
+            <label for="shortCode">Enter Short Code: </label>
+            <input type="text" name="shortCode" id="shortCode" required />
+          </div>
+          <button type="submit">Shorten</button>
+        </form>
+        <h2>Shortened URLs</h2>
+        <ul class="urls">
+          <% links.map(({shortCode, url}) => { %>
+          <% const truncateUrl = url.length >= 30 ? `${url.slice(0,30)}...` : url %>
+          <li>
+            <a href="/<%= shortCode %>" target="_blank">
+              <%= host %>/<%= shortCode %>
+            </a>
+            - <%= truncateUrl %>
+          </li>
+          <% }) %>
+        </ul>
+      </div>
+    </div>
+    <%- include('partials/footer') %>
+  </body>
+</html>
